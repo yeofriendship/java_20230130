@@ -3,7 +3,7 @@ package main;
 import java.util.Scanner;
 
 public class Main6_7 {
-
+ 
 	public static void main(String[] args) {
 		// 문제 4) 숫자 7을 입력하면 구구단 구하기
 		// 7 * 1 = 7
