@@ -13,7 +13,7 @@ public class Main6 {
 		int num = sc.nextInt();
 		sc.close();
 		
-		// 1. for문
+		// for문
 		// for (임시변수=초기값; 임시변수 조건문; 임시변수 증감){}
 		// i++ => i = i + 1
 		// i+=2 => i = i + 2
