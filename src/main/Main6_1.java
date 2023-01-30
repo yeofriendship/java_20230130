@@ -30,7 +30,7 @@ public class Main6_1 {
 		else {
 			System.out.println("두 수를 다르게 입력하세요.");
 		}
-
+ 
 	}
 
 }

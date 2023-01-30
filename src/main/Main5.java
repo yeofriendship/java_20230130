@@ -26,5 +26,5 @@ public class Main5 {
 		
 		// scanner 닫기(마지막에 한번만)
 		sc.close();
-	}
+	} 
 }

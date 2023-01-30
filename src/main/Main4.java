@@ -22,7 +22,7 @@ public class Main4 {
 		} 
 		else {
 			System.out.println("입력한 값은 5의 배수가 아님");
-		}
+		} 
 
 		// 100~90 : A
 		// 89~80 : B

@@ -26,5 +26,5 @@ public class Main6 {
 			System.out.print(i + " ");
 		}	
 	}
-
+ 
 }
