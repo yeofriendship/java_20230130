@@ -25,8 +25,9 @@ public class ItemMain {
 		item.checkContent();
 		
 		// 5. 이름을 뒤집어서 반환
-		item.reverseName();
-		System.out.println(item.revName());
+		item.reverseName1();
+		System.out.println(item.reverseName2());
+		System.out.println(item.reverseName3());
 	}
 
 }

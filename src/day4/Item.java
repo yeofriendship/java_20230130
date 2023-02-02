@@ -78,7 +78,7 @@ public class Item {
 	}
 	
 	// 5. 이름을 뒤집어서 반환하는 메소드 ex) 가나다 -> 다나가
-	public void reverseName() {
+	public void reverseName1() {
 		String[] str = this.name.split("");
 		
 		for (int i=str.length; i>0; i--) {
@@ -86,14 +86,25 @@ public class Item {
 		}
 	}
 	
-	public String revName() {
-		String str = ""; // 문자를 누적할 변수
+	public String reverseName2() {
+		String[] str = this.name.split("");
+		String res = ""; // 문자를 누적할 변수
 		
-		for (int i=this.name.length()-1; i>=0; i--) {
-			char res = this.name.charAt(i);
-			str = str + res;
+		for (int i=str.length; i>0; i--) {
+			res = res + str[i-1];
 		}
 		
-		return str;
+		return res;
+	}
+	
+	public String reverseName3() {
+		String res = ""; // 문자를 누적할 변수
+		
+		for (int i=this.name.length()-1; i>=0; i--) {
+			char str = this.name.charAt(i);
+			res = res + str;
+		}
+		
+		return res;
 	}
 }
