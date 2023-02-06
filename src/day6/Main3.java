@@ -28,7 +28,19 @@ public class Main3 {
 //		mDB.printMemberRole("C");
 		
 		// 나이가 n 이상인 회원만 조회
-		mDB.printMemberAge(50);
+//		mDB.printMemberAge(50);
+		
+		// 회원 정보 수정
+//		Member member = new Member();
+//		member.setId("aaa");
+//		member.setName("아자차카");
+//		member.setPhone("111");
+//		member.setAge(25);
+//		
+//		System.out.println(mDB.updateMember(member));
+		
+		// 회원 삭제
+		System.out.println(mDB.deleteMember("aaa"));;
 	}
 
 }

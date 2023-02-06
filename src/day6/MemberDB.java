@@ -3,14 +3,16 @@ package day6;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.InsertOneResult;
+import com.mongodb.client.result.UpdateResult;
 
 // 기능용 클래스
 // 몽고DB 연동
@@ -100,19 +102,64 @@ public class MemberDB {
 	}
 	
 	// 고객만 조회하는 메소드
-	public void printMemberRole(String roleC) {
-		Bson filter = Filters.eq("role", roleC);
+	public void printMemberRole(String role) {
+		Bson filter = Filters.eq("role", role);
 		
 		printAction(filter);
 	}
 	
+	// 이상 : gte
+	// 초과 : gt
+	// 이하 : lte
+	// 미만 : lt
+	
 	// 나이가 n 이상인 회원만 조회하는 메소드
-	public void printMemberAge(int nAge) {
-		// 이상 : gte
-		// 이하 : lte
-		Bson filter = Filters.gte("age", nAge);
+	public void printMemberAge(int n) {
+		Bson filter = Filters.gte("age", n);
 		
 		printAction(filter);
+	}
+	
+	// 회원 정보 수정하는 메소드
+	public int updateMember(Member member) {
+		try {
+			// 변경하고자 하는 항목의 조건
+			Bson filter = Filters.eq("_id", member.getId());
+			
+			// 변경할 항목들...
+			Bson update1 = Updates.set("name", member.getName());
+			Bson update2 = Updates.set("phone", member.getPhone());
+			Bson update3 = Updates.set("age", member.getAge());
+			
+			// updateOne(조건, 변경값) => 변경값이 하나의 Bson만 가능 => combine 사용
+			Bson update = Updates.combine(update1, update2, update3);
+			
+			UpdateResult result = this.collection.updateOne(filter, update);
+			System.out.println(result.toString());
+			return 1;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
+	// 회원 삭제하는 메소드
+	public int deleteMember(String id) {
+		try {
+			Bson filter = Filters.eq("_id", id);
+			DeleteResult result = this.collection.deleteOne(filter);
+			System.out.println(result.toString());
+			
+			if(result.getDeletedCount() == 1L) {
+				return 1; // 일치하는게 있어서 1개를 지움
+			}
+			return 0; // 일치하는게 없어서 못지움
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
 	}
 	
 	// 반복되는 작업은 새로운 메소드를 만들어서 코드 길이를 줄인다
