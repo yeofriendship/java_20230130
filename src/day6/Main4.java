@@ -9,7 +9,7 @@ public class Main4 {
 		ItemDB itemDB = new ItemDB();
 		
 //		// 2. 임시 데이터
-//		Item item = new Item(1, "물품명5", "물품내용5", 50000, 10, new Date());		
+//		Item item = new Item(3, "물품명3", "물품내용3", 50000, 10, new Date());		
 //		
 //		// 3. DB에 추가하는 메소드 수행
 //		int ret = itemDB.insertItem(item);
