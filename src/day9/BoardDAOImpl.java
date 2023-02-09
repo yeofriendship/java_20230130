@@ -1,4 +1,4 @@
-package day7;
+package day9;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,6 +7,7 @@ import java.util.List;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -17,22 +18,23 @@ import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
 
+import day8.Config;
+
 public class BoardDAOImpl implements BoardDAO {
 	// final : 변경 불가능한 변수 = 상수
-	final String URL = "mongodb://id211:pw211@1.234.5.158:37017/db211";
-	
 	private MongoCollection<Document> boardColl = null; // boards
 	private MongoCollection<Document> seqColl = null; 	// sequence
+	private MongoCollection<Document> replies = null;
 	
 	// 생성자
 	public BoardDAOImpl() {
 		try {
 			// 설계도면 객체 = 클래스명.정적메소드();
 			// 정적 메소드는 객체가 1개만 생성되기 때문에 리소스 낭비가 없음
-			MongoClient client = MongoClients.create(URL);
-			this.boardColl = client.getDatabase("db211").getCollection("boards");
-			this.seqColl = client.getDatabase("db211").getCollection("sequence");
-			System.out.println("DB접속 성공시점");
+			MongoClient client = MongoClients.create(Config.URL);
+			this.boardColl = client.getDatabase(Config.DBNAME).getCollection("boards");
+			this.seqColl = client.getDatabase(Config.DBNAME).getCollection("sequence");
+			this.replies = client.getDatabase(Config.DBNAME).getCollection(Config.REPLYCOL);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -126,6 +128,19 @@ public class BoardDAOImpl implements BoardDAO {
 				board.setBrdHit(doc.getLong("hit"));
 				board.setBrdDate(doc.getDate("date"));
 				
+				// 글 번호를 이용하여 답글 개수 구하기
+				Bson filter = Filters.eq("board", doc.getLong("_id"));
+				long replyCount = this.replies.countDocuments(filter);
+				board.setReplyCount(replyCount);
+				
+				// 게시글에 달린 답글 번호 구하기
+				FindIterable<Document> replyDocs = this.replies.find(filter);
+				List<Long> replyList = new ArrayList<>();
+				for(Document replyDoc: replyDocs) {
+					replyList.add(replyDoc.getLong("_id"));
+				}
+				board.setReplyNoList(replyList);
+	
 				list.add(board);
 			}
 		}
@@ -217,8 +232,38 @@ public class BoardDAOImpl implements BoardDAO {
 		}
 	}
 
-	
+	@Override
+	public List<Board> selectBoardReplyCount(int n) {
+		try {
+			// 1. 전체 게시글을 가져옴
+			FindIterable<Document> list = this.boardColl.find();
+			
+			// 2. 반복한다
+			List<Board> result = new ArrayList<Board>();
+			for (Document doc : list) {
+				// 3. 게시글 번호를 이용해서 답글의 개수를 구한다
+				Bson filter = Filters.eq("board", doc.getLong("_id"));
+				
+				long replyCount = this.replies.countDocuments(filter);
+				if (replyCount >= n) {
+					Board board = new Board();
+					board.setBrdNo(doc.getLong("_id"));
+					board.setBrdTitle(doc.getString("title"));
+					board.setBrdContent(doc.getString("content"));
+					board.setBrdWriter(doc.getString("writer"));
+					board.setBrdHit(doc.getLong("hit"));
+					board.setBrdDate(doc.getDate("date"));
+					board.setReplyCount(replyCount);
+					
+					result.add(board);
+				}
+			}
+			return result;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-	
-	
 }

@@ -1,4 +1,4 @@
-package day7;
+package day9;
 
 import java.util.List;
 
@@ -20,4 +20,7 @@ public interface BoardDAO {
 	
 	// 게시글 1개 조회
 	public Board selectBoardOne(long no);
+	
+	// 답글의 개수가 n개 이상인 게시글 조회
+	public List<Board> selectBoardReplyCount(int n);
 }

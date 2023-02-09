@@ -15,4 +15,10 @@ public class Config {
 	
 	// 데이터베이스 명칭
 	public static final String DBNAME = "db211";
+	
+	// 답글 컬렉션 명칭(테이블)
+	public static final String REPLYCOL = "replies";
+	
+	// 시퀀스용 컬렉션 명칭(테이블)
+	public static final String RESEQUENCECOL = "sequence";
 }
