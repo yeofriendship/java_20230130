@@ -3,7 +3,7 @@ package day5;
 import java.util.ArrayList;
 
 import cls.Book;
-import day4.Member;
+import day10.Member;
 
 // 출력을 담당하는 클래스
 public class Output {

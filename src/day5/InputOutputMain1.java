@@ -1,6 +1,6 @@
 package day5;
 
-import day4.Member;
+import day10.Member;
 
 // 메인은 테스트용, 입력(X) 출력(X), 특정 클래스
 public class InputOutputMain1 {

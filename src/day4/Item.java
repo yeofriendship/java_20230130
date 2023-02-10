@@ -2,6 +2,7 @@ package day4;
 
 import java.util.Date;
 
+import day10.Member;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

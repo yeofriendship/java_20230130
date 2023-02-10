@@ -1,4 +1,4 @@
-package day4;
+package day10;
 
 import java.util.Date;
 
@@ -16,6 +16,7 @@ public class Member {
 	private String name = null;
 	private String phone = null;	// ex) 000-0000-0000
 	private String role = null;		// 권한 (C : 고객 / S : 판매자)
+	private int age = 0;
 	private Date regdate = null;
 
 	// getter, setter, toString 생성하기 => lombok 사용(@~)

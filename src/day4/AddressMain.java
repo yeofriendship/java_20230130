@@ -2,6 +2,9 @@ package day4;
 
 import java.util.Date;
 
+import day10.Address;
+import day10.Member;
+
 public class AddressMain {
 
 	public static void main(String[] args) {

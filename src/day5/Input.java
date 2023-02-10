@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import cls.Book;
-import day4.Member;
+import day10.Member;
 
 // 입력을 담당하는 클래스
 public class Input {

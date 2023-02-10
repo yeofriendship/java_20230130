@@ -2,6 +2,8 @@ package day4;
 
 import java.util.Date;
 
+import day10.Member;
+
 public class MemberMain {
 
 	public static void main(String[] args) {
