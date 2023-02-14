@@ -67,21 +67,21 @@ public class Main {
 //			System.out.println("**********************************");
 //		}
 
-		RestTitanic titanic = new RestTitanic();
-		List<Titanic> list = Titanic.parseData();
-		for (Titanic t : list) {
-			System.out.println(t.getAge());
-			System.out.println(t.getCabin());
-			System.out.println(t.getParch());
-			System.out.println(t.getPclass());
-			System.out.println(t.getSex());
-			System.out.println(t.getSurvived());
-			System.out.println(t.getEmbarked());
-			System.out.println(t.getTicket());
-			System.out.println(t.getPassengerId());
-			System.out.println(t.getSibsp());
-			System.out.println("-----------------");
-
-		}
+//		RestTitanic titanic = new RestTitanic();
+//		List<Titanic> list = Titanic.parseData();
+//		for (Titanic t : list) {
+//			System.out.println(t.getAge());
+//			System.out.println(t.getCabin());
+//			System.out.println(t.getParch());
+//			System.out.println(t.getPclass());
+//			System.out.println(t.getSex());
+//			System.out.println(t.getSurvived());
+//			System.out.println(t.getEmbarked());
+//			System.out.println(t.getTicket());
+//			System.out.println(t.getPassengerId());
+//			System.out.println(t.getSibsp());
+//			System.out.println("-----------------");
+//
+//		}
 	}
 }

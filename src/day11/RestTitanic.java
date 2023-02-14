@@ -1,11 +1,19 @@
 package day11;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.bson.Document;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.result.InsertManyResult;
+
+import day8.Config;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -15,9 +23,11 @@ public class RestTitanic {
 	
 	private final String URL = "https://raw.githubusercontent.com/AISPUBLISHING/dsfs-python/master/titanic.json";
 	private String data = null;
+	private MongoCollection<Document> titanicCollection = null;
 	
 	public RestTitanic() {
 		try {
+			// rest 데이터 가져와서 data 변수에 추가하기
 			// 1.클라이언트 객체 생성
 			OkHttpClient client = new OkHttpClient();
 
@@ -32,6 +42,12 @@ public class RestTitanic {
 				this.data = response.body().string().toString();
 				System.out.println("확인용 : " + this.data);
 			}
+			
+			// 데이터베이스 접속하기
+			MongoClient dbClient = MongoClients.create(Config.URL);
+			this.titanicCollection = dbClient.getDatabase(Config.DBNAME)
+											 .getCollection(Config.TITANICCOL);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -94,8 +110,8 @@ public class RestTitanic {
 				titanic.setTicket(jobj.getString("ticket"));
 			}
 			
-			if (!jobj.isNull("passengerId")) {
-				titanic.setPassengerId(jobj.getInt("passengerId"));
+			if (!jobj.isNull("passengerid")) {
+				titanic.setPassengerId(jobj.getInt("passengerid"));
 			}
 			
 			if (!jobj.isNull("sibsp")) {
@@ -109,10 +125,33 @@ public class RestTitanic {
 
 	
 	public void saveMongoDB() {
-		try {
+		List<Titanic> list = this.parseData();
+		
+		// insertMany : List<Document> 타입을 요구함
+		// => List<Titanic> 을 List<Document> 로 변환
+		List<Document> saveList = new ArrayList<Document>();
+		
+		for(Titanic tmp : list) {
 			Document doc = new Document();
-			doc.append()
+			
+			doc.append("fare", tmp.getFare());
+			doc.append("name", tmp.getName());
+			doc.append("age", tmp.getAge());
+			doc.append("cabin", tmp.getCabin());
+			doc.append("parch", tmp.getParch());
+			doc.append("pclass", tmp.getPclass());
+			doc.append("sex", tmp.getSex());
+			doc.append("survived", tmp.getSurvived());
+			doc.append("embarked", tmp.getEmbarked());
+			doc.append("ticket", tmp.getTicket());
+			doc.append("passengerid", tmp.getPassengerId());
+			doc.append("sibsp", tmp.getSibsp());
+			doc.append("regdate", new Date());
+			
+			saveList.add(doc);
 		}
 		
+		InsertManyResult result = this.titanicCollection.insertMany(saveList);
+		System.out.println(result);
 	}
 }

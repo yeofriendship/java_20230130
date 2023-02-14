@@ -16,6 +16,5 @@ public class Titanic {
 		private String embarked = "C"; // 탑승한 곳(항구) C = Cherbourg, Q = Queenstown, S = Southampton
 		private String name = null;
 		private int passengerId = 0;
-
-		}
+}
 	

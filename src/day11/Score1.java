@@ -10,6 +10,4 @@ public class Score1 {
 	private int math = 0;
 	private int eng = 0;
 	private int kor = 0;
-	
-
 }
