@@ -19,10 +19,13 @@ public class Config {
 	
 	// 시퀀스용 컬렉션 명칭(테이블)
 	public static final String RESEQUENCECOL = "sequence";
-	
 	public static final String MEMBERCOL = "members";
-	
 	public static final String ADDRESSCOL = "addresses";
-	
 	public static final String TITANICCOL = "titanic";
+	public static final String ITEMCOL = "items";
+	
+	// 채팅용 서버정보
+	public static final String BROKER = "tcp://1.234.5.158:11883";
+	public static final String CONNECTID = "ds606";
+	public static final String CONNECTPW = "ds606";
 }
