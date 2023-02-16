@@ -23,6 +23,7 @@ public class Config {
 	public static final String ADDRESSCOL = "addresses";
 	public static final String TITANICCOL = "titanic";
 	public static final String ITEMCOL = "items";
+	public static final String BOARDCOL = "boards";
 	
 	// 채팅용 서버정보
 	public static final String BROKER = "tcp://1.234.5.158:11883";
